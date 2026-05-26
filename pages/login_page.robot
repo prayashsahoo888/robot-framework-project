@@ -6,11 +6,8 @@ ${USERNAME_FIELD}    name=username
 ${PASSWORD_FIELD}    name=password
 ${LOGIN_BUTTON}      xpath=//button[@type="submit"]
 ${DASHBOARD_TEXT}    xpath=//h6[text()='Dashboard']
-*** Keywords ***
 
-Open Browser To Login Page
-    Open Browser    ${URL}    ${BROWSER}
-    Maximize Browser Window
+*** Keywords ***
 
 Enter Username
     [Arguments]    ${username}
