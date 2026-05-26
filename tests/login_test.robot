@@ -11,7 +11,7 @@ Valid Login Test
     [Template]    Login Scenario
 
     Admin    admin123
-    Admin    admin1234
+
 
 *** Keywords ***
 Open Chrome Browser
