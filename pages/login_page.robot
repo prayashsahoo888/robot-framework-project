@@ -2,8 +2,8 @@
 Library    SeleniumLibrary
 
 *** Variables ***
-${USERNAME_FIELD}    name=username
-${PASSWORD_FIELD}    name=password
+${USERNAME_FIELD}    xpath=//input[@name="username"]
+${PASSWORD_FIELD}    xpath=//input[@name="password"]
 ${LOGIN_BUTTON}      xpath=//button[@type="submit"]
 ${DASHBOARD_TEXT}    xpath=//h6[text()='Dashboard']
 
