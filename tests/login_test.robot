@@ -1,35 +1,21 @@
 *** Settings ***
-Resource    ../resources/config.robot
-Resource    ../pages/login_page.robot
-Library     SeleniumLibrary
-
-Suite Setup       Open Chrome Browser
-Suite Teardown    Close Browser
+Library          SeleniumLibrary
+Resource         ../pages/login_page.robot  # Double check this path matches your structure
 
 *** Test Cases ***
 Valid Login Test
-    [Template]    Login Scenario
-
-    Admin    admin123
-
-
-*** Keywords ***
-Open Chrome Browser
-    ${options}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-
-    Call Method    ${options}    add_argument    --headless
-    Call Method    ${options}    add_argument    --no-sandbox
-    Call Method    ${options}    add_argument    --disable-dev-shm-usage
-
-    Create Webdriver    Chrome    options=${options}
-
-    Go To    https://google.com
+    # Open the browser with options that disable sandboxing and extensions which slow down loading
+    Open Browser    https://opensource-demo.orangehrmlive.com/web/index.php/auth/login    chrome    options=add_argument("--disable-gpu"); add_argument("--no-sandbox")
     Maximize Browser Window
 
-Login Scenario
-    [Arguments]    ${username}    ${password}
+    # FORCE Selenium to wait until the browser engine itself finishes rendering the page background
+    Execute Javascript    return document.readyState === "complete"
 
-    Enter Username    ${username}
-    Enter Password    ${password}
+    # Give the OrangeHRM Javascript framework 2 seconds to paint the actual input boxes
+    Sleep    2s
+
+    Enter Username    Admin
+    Enter Password    admin123
     Click Login
     Verify Dashboard
+    [Teardown]    Close Browser
